@@ -4,11 +4,11 @@ import os
 import sys
 import pandas as pd
 import numpy as np
-from src.exception import CustomException
+from src.exception import custom_exception
 from src.logger import logging
-from src.utils import save_object
+# from src.utils import save_object
 from dataclasses import dataclass
-# from sklearn.preprocessing import OneHotEncoder,StandardScaler,OrdinalEncoder
+from sklearn.preprocessing import LabelEncoder
 # from sklearn.pipeline import Pipeline
 # from sklearn.compose import ColumnTransformer
 # from sklearn.impute import SimpleImputer
@@ -34,6 +34,20 @@ class data_transformation:
 
         except Exception as e:
             raise CustomException(e,sys)
+    
+    def remove_nulls(self,data):
+        data.dropna(inplace=True)
+        data.drop_duplicates(inplace=True)
+        
+        return data
+    
+    def encode_labels(self,df):
+        label_encoder = LabelEncoder()
+        df['sex'] = label_encoder.fit_transform(df['sex'])
+        df['target'] = label_encoder.fit_transform(df['target'])
+        
+        return df
+        
         
     def initiate_data_transoformer(self):
         try:
@@ -62,3 +76,7 @@ class data_transformation:
             
         except Exception as e:
             CustomException(e,sys)
+            
+if __name__ == '__main__':
+    obj = data_transformation()
+    train_arr, test_arr, path = obj.initiate_data_transoformer()

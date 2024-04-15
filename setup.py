@@ -16,7 +16,7 @@ def get_requirements(file_path:str)->List[str]:
     return requirements
 
 setup(
-    name = 'data-science-from-scratch',
+    name = 'heart-disease-classification',
     version = '0.0.1',
     author = 'Aryan Gadhiya',
     author_email = 'ary16.work@gmail.com',

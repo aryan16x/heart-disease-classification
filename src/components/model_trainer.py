@@ -3,19 +3,8 @@ import sys
 from dataclasses import dataclass
 from src.exception import custom_exception
 from src.logger import logging
-# from src.utils import save_object,evaluate_models
-
-# from catboost import CatBoostRegressor
-# from sklearn.ensemble  import (
-#     AdaBoostRegressor,
-#     GradientBoostingRegressor,
-#     RandomForestRegressor
-# )
-# from sklearn.linear_model import LinearRegression,Lasso,Ridge
-# from sklearn.metrics import r2_score
-# from sklearn.neighbors import KNeighborsRegressor
-# from sklearn.tree import DecisionTreeRegressor
-# from xgboost import XGBRegressor
+from joblib import dump
+import numpy as np
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
@@ -28,13 +17,12 @@ class model_trainer:
             logging.info("Splitting features and target values")
         
             model = RandomForestClassifier()
-            model.fit(X_train, y_train)
+            model.fit(np.array(X_train), np.array(y_train))
             predictions = model.predict(X_test)
             accuracy = accuracy_score(y_test, predictions)
             print("Accuracy:", accuracy)
             
-           # Add code to train, evaluate, compare and to select the best model
-           # Save the best model
+            dump(model, 'artifacts/random_forest_model.joblib')
             
         except Exception as e:
             raise CustomException(e,sys)

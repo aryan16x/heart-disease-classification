@@ -6,12 +6,8 @@ import pandas as pd
 import numpy as np
 from src.exception import custom_exception
 from src.logger import logging
-# from src.utils import save_object
 from dataclasses import dataclass
 from sklearn.preprocessing import LabelEncoder
-# from sklearn.pipeline import Pipeline
-# from sklearn.compose import ColumnTransformer
-# from sklearn.impute import SimpleImputer
 
 @dataclass
 class data_transform_config:
